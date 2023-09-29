@@ -1,0 +1,61 @@
+﻿@model BusinessLayer.Entity.HourMeterReport
+
+
+<div class="card-box mb-30" style="padding:10px;">
+    
+    <div class="table-responsive">
+        <table class="table table-bordered" style="font-size:10px; padding:0px;  margin:0px;min-width:600px;" id="tblList">
+
+            <thead>
+             
+                <tr> 
+                    <th style="width:100px;text-align:center;">Reading</th>
+                    <th style="width:100px;text-align:center;">Start</th>
+                    <th style="width:100px;text-align:center;">End</th>
+                    <th style="width:100px;text-align:center;">Total</th> 
+                    <th style="width:100px;text-align:center;">Remarks</th> 
+                </tr>
+            </thead>
+            <tbody id="tbodyList">
+                @for (int i = 0; i < Model.HourMeterDtl_List.Count(); i++)
+                {
+
+                    <tr id="tr_@i">
+                        <td data-title="Reading">
+                            @Html.TextBoxFor(model => model.HourMeterDtl_List[i].PM_NAME, new { @class = "form-control cal numeric", @id = "txtPM_NAME_" + i, @autocomplete = "off", @readonly = true })
+                            @Html.HiddenFor(model => model.HourMeterDtl_List[i].PM_ID, new { @class = "form-control", @id = "hdnPM_ID_" + i })
+                            @Html.HiddenFor(model => model.HourMeterDtl_List[i].HMRR_ID, new { @class = "form-control", @id = "hdnHMRR_ID_" + i })
+                        </td>
+                        <td data-title="Start">
+                            @Html.TextBoxFor(model => model.HourMeterDtl_List[i].Start, new { @class = "form-control cal numeric", @id = "txtStart_" + i, @autocomplete = "off", @type = "time" })
+                        </td>
+                        <td data-title="End">
+                            @Html.TextBoxFor(model => model.HourMeterDtl_List[i].End, new { @class = "form-control cal numeric", @id = "txtEnd_" + i, @autocomplete = "off" , @type ="time"})
+                        </td> 
+                        <td data-title="Total">
+                            @Html.TextBoxFor(model => model.HourMeterDtl_List[i].Total, new { @class = "form-control cal numeric", @id = "txtTotal_" + i, @autocomplete = "off" })
+                        </td>
+                        <td data-title="Remarks">
+                            @Html.TextBoxFor(model => model.HourMeterDtl_List[i].Remarks, new { @class = "form-control", @id = "txtRemarks_" + i, @autocomplete = "off" })
+                        </td> 
+                    </tr>
+                }
+            </tbody>
+
+             
+        </table>
+
+    </div>
+    @if (Model.HourMeterDtl_List != null)
+    {
+        if (Model.HourMeterDtl_List.Count() > 0)
+        {
+            
+            @Html.HiddenFor(model => model.HourMeterDtl_List[0].HMR_ID, new { @class = "form-control", @id = "hdnHMR_ID" })
+             @Html.HiddenFor(model => model.HourMeterDtl_List[0].IS_LOCKED, new { @class = "form-control", @id = "hdnIS_LOCKED" })
+    }
+    }
+    
+</div>
+
+<script src="~/FormJS/Filters/_HourHrmReading_Dtl.js"></script>
